@@ -1,0 +1,28 @@
+import { Component, OnInit } from '@angular/core';
+import { Post } from 'src/app/models/post';
+import { recupera, aggiorna } from 'src/app/service/post-service.service';
+
+@Component({
+  selector: 'app-active-posts',
+  templateUrl: './inactive-posts.component.html',
+  styleUrls: ['./inactive-posts.component.scss']
+})
+export class InactivePostsComponent implements OnInit {
+
+  posts! : Post[];
+
+  constructor() { }
+
+ async ngOnInit(){
+
+  const posts = await recupera()
+  this.posts = posts;
+
+  }
+
+  attiva(id : number,i : number ){
+    aggiorna({active : true} ,id );
+    this.posts.splice(i,1);
+  }
+
+}
